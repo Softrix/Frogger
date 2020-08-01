@@ -1,17 +1,34 @@
-#ifndef OBJECT_H_INCLUDED
-#define OBJECT_H_INCLUDED
-#include "plotter.h"
-#define SPEED 60;
+
+
+/*
+
+
+		$file:						Frogger Remake ( For the console)
+		$purpose:					Object Class
+		$author:					Kyle Lanmon / Michael Boyle (Softrix)
+
+
+*/
+
+
+
+#ifndef _H_OBJECT
+#define _H_OBJECT
 
 class Object
 {
 protected:
-    int rowNum, colNum;
-    Plotter p;
+	int xPos, yPos, speed, timer, size;
+	char dir;
+	colour ink;
 
 public:
-    int getRowNum(){ return rowNum; };
-    int getColNum(){ return colNum; };
+	int getyPos(){ return yPos; };
+	int getxPos(){ return xPos; };
+	colour getColour(){ return ink; }
+	int getSize(){ return size; }
+	char getDir() { return dir; }
+
 };
 
 #endif // OBJECT_H_INCLUDED

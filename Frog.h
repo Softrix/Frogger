@@ -1,31 +1,44 @@
-#ifndef FROG_H_INCLUDED
-#define FROG_H_INCLUDED
+
+/*
+
+
+		$file:						Frogger Remake ( For the console)
+		$purpose:					Frog class
+		$author:					Kyle Lanmon / Michael Boyle (Softrix)
+
+
+*/
+
+
+#ifndef _H_FROG
+#define _H_FROG
+
+#include "Graphics.h"
 #include "Object.h"
+
+const int MAX_COL = 81;
+const int MIN_COL = 1;
+const int MAX_ROW = 52;
+const int MIN_ROW = 0;
+
+enum key
+{
+	vk_left = 75, vk_right = 77, vk_up = 72, vk_down = 80
+};
 
 class Frog : public Object
 {
 private:
-    char color;
-    bool full0, full1, full2, full3, full4;
-    int winCount, numLives;
+	Graphics console;
+	void clearFrog();
 
 public:
-    Frog();
-    void drawFrog(char);
-    void moveUp();
-    void moveDown();
-    void moveLeft();
-    void moveRight();
-    void moveLeftWithLog();
-    void moveRightWithLog();
-    void win();
-    void die();
-    bool isWinZoneFull(int);
-    int getWinCount() { return winCount; };
-    int getNumLives() { return numLives; };
-    void setNumLives(int lives) { numLives = lives; };
-    void setColor();
-    char getColor() { return color; };
+	Frog();
+	void drawFrog();
+	void plrMoveFrog(char);
+	void logMoveFrog(char);
+	void resetPosition();
 };
 
-#endif // FROG_H_INCLUDED
+
+#endif

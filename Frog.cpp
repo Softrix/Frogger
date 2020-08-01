@@ -1,161 +1,100 @@
-#include <iostream>
-#include "Frog.h"
-#include "plotter.h"
 
-const int MAX_COL = 81;
-const int MIN_COL = 1;
-const int MAX_ROW = 52;
-const int MIN_ROW = 0;
+/*
+
+
+		$file:						Frogger Remake ( For the console)
+		$purpose:					Frog Class
+		$author:					Kyle Lanmon / Michael Boyle (Softrix)
+
+
+*/
+
+
+#include "Frog.h"
 
 Frog::Frog()
 {
-    color = 'g';
-    winCount = 0;
-    numLives = 5;
-    rowNum = 52;
-    colNum = 41;
+	resetPosition();
 }
 
-void Frog::moveUp()
+// move frog
+void Frog::plrMoveFrog(char key)
 {
-    setColor();
-    drawFrog(color);
+	clearFrog();
 
-    if( rowNum > MIN_ROW )
-    {
-        if( rowNum == 52 || rowNum == 29 || rowNum == 26 || rowNum == 3 )
-        {
-            rowNum -= 3;
-        }
-        else
-        {
-            rowNum -= 5;
-        }
-    }
-
-    color = 'g';
-    drawFrog(color);
+	switch (key)
+	{
+	case vk_left:
+		if (xPos > MIN_COL)
+			xPos -= 5;
+		break;
+	case vk_right:
+		if (xPos < MAX_COL)
+			xPos += 5;
+		break;
+	case vk_up:
+		if (yPos > MIN_ROW)
+			if (yPos == 52 || yPos == 29 || yPos == 26 || yPos == 3)
+				yPos -= 3;
+			else
+				yPos -= 5;
+		break;
+	case vk_down:
+		if (yPos < MAX_ROW && yPos  > 2)
+			if (yPos == 49 || yPos == 26 || yPos == 23)
+				yPos += 3;
+			else
+				yPos += 5;
+		break;
+	}
 }
 
-void Frog::moveDown()
+// update frogs xpos
+void Frog::logMoveFrog(char dir)
 {
-    setColor();
-    drawFrog(color);
-
-    if( rowNum < MAX_ROW && rowNum  > 2 )
-    {
-        if( rowNum == 49 || rowNum == 26 || rowNum == 23 )
-        {
-            rowNum += 3;
-        }
-        else
-        {
-            rowNum += 5;
-        }
-    }
-
-    color = 'g';
-    drawFrog(color);
+	switch (dir) {
+	case	'L':
+		xPos--;
+		break;
+	case	'R':
+		xPos++;
+		break;
+	}
 }
 
-void Frog::moveLeft()
+// draw frog
+void Frog::drawFrog()
 {
-    setColor();
-    drawFrog(color);
-
-    if( colNum > MIN_COL )
-    {
-        colNum -= 5;
-    }
-
-    color = 'g';
-    drawFrog(color);
+	for (int i = xPos; i < xPos + 3; i++)
+	{
+		console.draw(i, yPos, green, SQUARE);
+		console.draw(i, yPos + 1, green, SQUARE);
+	}
 }
 
-void Frog::moveRight()
+// clear at old position of frog
+void Frog::clearFrog()
 {
-    setColor();
-    drawFrog(color);
+	colour blankColour = black;  // default
+	if (yPos == 52 || yPos == 26)	// pathway
+		blankColour = magenta;
+	else if (yPos >= 29 && yPos <= 49)	// road
+			blankColour = black;
+		else if (yPos >= 0 && yPos <= 23)	// water
+				blankColour = darkblue;
 
-    if( colNum < MAX_COL )
-    {
-        colNum += 5;
-    }
-
-    color = 'g';
-    drawFrog(color);
+	// redraw frog at selected colour
+	for (int i = xPos; i < xPos + 3; i++) {
+		console.draw(i, yPos, blankColour, SQUARE);
+		console.draw(i, yPos + 1, blankColour, SQUARE);
+	}
 }
 
-void Frog::setColor()
+// reset position of frog
+void Frog::resetPosition()
 {
-    if( rowNum == 52 || rowNum == 26 )
-    {
-        color = 'm';
-    }
-    if( rowNum > 26 && rowNum < 52 )
-    {
-        color = 'b';
-    }
-    if( rowNum > -1 && rowNum < 26 )
-    {
-        color = 'd';
-    }
+	xPos = 41;
+	yPos = 52;
+	ink = green;
 }
 
-void Frog::drawFrog( char c )
-{
-    if( winCount < 5 )
-    {
-        switch(c)
-        {
-        case 'm':
-            p.setColor(magenta);
-            break;
-        case 'b':
-            p.setColor(black);
-            break;
-        case 'd':
-            p.setColor(darkblue);
-            break;
-        case 'w':
-            p.setColor(white);
-            break;
-        default:
-            p.setColor(darkgreen);
-            break;
-        }
-
-        for( int i = colNum; i < colNum + 3; i++ )
-        {
-            p.plot(i, rowNum, SQUARE);
-            p.plot(i, rowNum+1, SQUARE);
-        }
-    }
-}
-
-void Frog::win()
-{
-    if( winCount < 5 )
-    {
-        winCount++;
-    }
-
-    color = 'g';
-    rowNum = 52;
-    colNum = 41;
-    drawFrog(color);
-}
-
-void Frog::die()
-{
-    //show a big red X on the screen
-    setColor();
-    drawFrog(color);
-
-    numLives--;
-
-    color = 'g';
-    rowNum = 52;
-    colNum = 41;
-    drawFrog(color);
-}

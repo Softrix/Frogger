@@ -1,32 +1,29 @@
-
 /*
 
 
 		$file:						Frogger Remake ( For the console)
-		$purpose:					Cars Class
+		$purpose:					Logs Class
 		$author:					Kyle Lanmon / Michael Boyle (Softrix)
 
 
 */
 
 
+#include "Logs.h"
 
-#include "Car.h"
-
-// constructor
-Car::Car()
+Log::Log()
 {
+	// default values.
 	xPos = 0;
 	yPos = 0;
 	speed = 0;
-	timer = 0;
 	size = 0;
-	dir = 'R';
+	dir = 0;
 	ink = black;
 }
 
-// initialise car
-void Car::setCar(int x, int y, int delay, int len, char direction, colour c)
+// initialise log
+void Log::setLog(int x, int y, int delay, int len, char direction, colour c)
 {
 	xPos = x;
 	yPos = y;
@@ -37,8 +34,8 @@ void Car::setCar(int x, int y, int delay, int len, char direction, colour c)
 	dir = direction;
 }
 
-// update car
-void Car::updateCar()
+// update position of log
+void Log::updateLog()
 {
 	timer--;
 	if (timer == 0) {
@@ -48,38 +45,37 @@ void Car::updateCar()
 		switch (dir)
 		{
 		case 'L':  // moving left
-			clearCar();
+			clearLog();
 			xPos--;
 			if (xPos <= 0) {
 				xPos = 85 - size;
 			}
-			drawCar();
+			drawLog();
 			break;
 		case 'R':  // moving right.
-			clearCar();
+			clearLog();
 			xPos++;
 			if (xPos >= 85 - size) {
 				xPos = 0;
 			}
-			drawCar();
+			drawLog();
 			break;
-		}
+		} 
 	}
 }
 
-// clear last car position
-void Car::clearCar()
-{
-	for (int i = 0; i < size; i++) {
-		console.draw(xPos + i, yPos, black, SQUARE);
-		console.draw(xPos + i, yPos + 1, black, SQUARE);
-	}
-}
-
-void Car::drawCar()
+void Log::drawLog()
 {
 	for (int i = 0; i < size; i++) {
 		console.draw(xPos + i, yPos, ink, SQUARE);
-		console.draw(xPos + i, yPos + 1, ink, SQUARE);
+		console.draw(xPos + i, yPos+1, ink, SQUARE);
+	}
+}
+
+void Log::clearLog()
+{
+	for (int i = 0; i < size; i++) {
+		console.draw(xPos + i, yPos, darkblue, SQUARE);
+		console.draw(xPos + i, yPos+1, darkblue, SQUARE);
 	}
 }
