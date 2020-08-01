@@ -1,16 +1,21 @@
 frogger
 =======
 
-frogger assignment
+This is a modified version of of Kyles Frogger programming assignment found here:  https://github.com/lanmonster/frogger
 
 
-This is a remake of the classic game Frogger.
+	History:
 
-Current issues I am having include getting the cars and logs to move, getting everything to move simultaneously and handling collisions.
+		Rewritten welcome screen to remove external file requirement.
+		Rewritten Log code to support different size logs, different colours and speeds.
+		Rewritten Car code to support different size cars/trucks, different colours and speeds.
+		Optimised code in several areas.
+		Fixed several compiler warnings.
+		Written Frog->Car collision code
 
-The current version has code that makes the logs move across the screen but the frog doesn't move until the cars are done moving.
-
-
-Edit:  Forked from lanmonster and a lot of improvements / bugs have been implemented - there are still some issues such as when you jump on the logs and ride.  I made these improvements years ago when I was helping Kyle but never ever updated GitHub - oops!
-
-
+	Todo:
+	
+		collision with logs = ride with log until move up or down off the log
+		test for non collision of logs, i.e. drop in water = 1 less life.
+		test for win zones (and all zones completed = win)
+		score increase on successful zone.
