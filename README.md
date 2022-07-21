@@ -1,7 +1,7 @@
 frogger
 =======
 
-This is a modified version of of Kyles Frogger programming assignment found here:  https://github.com/lanmonster/frogger
+This is a modified version of of Kyles Frogger programming assignment found here:  https://github.com/lanmonster/frogger - this was something I was asked to help with years ago and completely forgot about the code.
 
 
 	History:
@@ -19,3 +19,5 @@ This is a modified version of of Kyles Frogger programming assignment found here
 		test for non collision of logs, i.e. drop in water = 1 less life.
 		test for win zones (and all zones completed = win)
 		score increase on successful zone.
+
+I never did finish this back then, I hope someone finds the code useful.
